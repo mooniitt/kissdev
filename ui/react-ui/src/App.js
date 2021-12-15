@@ -1,7 +1,11 @@
-import "./App.css";
+import Tips from "./components/tips";
 
 function App() {
-  return <div className="App">helo</div>;
+  return (
+    <div>
+      <Tips />
+    </div>
+  );
 }
 
 export default App;
