@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "eiows": "^3.6.1",
+    "html-webpack-plugin": "^5.5.0",
+    "react-ui": "./ui/react-ui"
+  }
+}
