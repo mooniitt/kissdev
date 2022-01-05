@@ -18,19 +18,19 @@ class DevLatest {
            *     <script defer="defer" src="/static/js/main.c14da6f2.js"></script>
     <link href="/static/css/main.e6c13ad2.css" rel="stylesheet" />
            */
-          object.bodyTags.push(
-            HtmlWebpackPlugin.createHtmlTagObject("div", {
-              id: "devlatest",
-            }),
-            HtmlWebpackPlugin.createHtmlTagObject("script", {
-              src: "/static/js/main.c14da6f2.js",
-              defer: "defer",
-            }),
-            HtmlWebpackPlugin.createHtmlTagObject("link", {
-              href: "/static/css/main.e6c13ad2.css",
-              rel: "stylesheet",
-            })
-          );
+          // object.bodyTags.push(
+          //   HtmlWebpackPlugin.createHtmlTagObject("div", {
+          //     id: "devlatest",
+          //   }),
+          //   HtmlWebpackPlugin.createHtmlTagObject("script", {
+          //     src: "/static/js/main.c14da6f2.js",
+          //     defer: "defer",
+          //   }),
+          //   HtmlWebpackPlugin.createHtmlTagObject("link", {
+          //     href: "/static/css/main.e6c13ad2.css",
+          //     rel: "stylesheet",
+          //   })
+          // );
           cb(null, object);
         }
       );
