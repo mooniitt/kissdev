@@ -13,6 +13,7 @@ class DevLatest {
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
         "DevLatest", // <-- Set a meaningful name here for stacktraces
         (object, cb) => {
+          console.log("asdjsalkdjk....");
           // Manipulate the content
           /**
            *     <script defer="defer" src="/static/js/main.c14da6f2.js"></script>
