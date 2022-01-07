@@ -1,5 +1,4 @@
-// import devlatest from "devlatest";
-const devlatest = require("./plugin/index");
+const devlatest = require("devlatest");
 
 module.exports = {
   chainWebpack: (config) => {

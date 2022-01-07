@@ -24,7 +24,27 @@ function insert({ project_id, ref, hash }, callback) {
 }
 
 function query({ project_id, ref, hash }, callback) {
-  var sql = `SELECT * FROM customers WHERE project_id = ${project_id} AND ref = ${ref}';`;
+  var sql = `SELECT * FROM branch_info WHERE project_id = ${project_id} AND ref = '${ref}' AND hash = '${hash}';`;
+  connection.query(sql, function (err, result) {
+    callback(err, result);
+    if (err) {
+      throw err;
+    }
+  });
+}
+
+function read({ project_id, ref }, callback) {
+  const sql = `SELECT * FROM branch_info WHERE project_id = ${project_id} AND ref = '${ref}';`;
+  connection.query(sql, function (err, result) {
+    callback(err, result);
+    if (err) {
+      throw err;
+    }
+  });
+}
+
+function update({ project_id, ref, hash }, callback) {
+  var sql = `UPDATE branch_info SET hash = '${hash}' WHERE project_id = ${project_id} AND ref = '${ref}';`;
   connection.query(sql, function (err, result) {
     callback(err, result);
     if (err) {
@@ -37,4 +57,6 @@ module.exports = {
   connection,
   insert,
   query,
+  update,
+  read,
 };

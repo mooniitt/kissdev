@@ -1,4 +1,5 @@
 {
+  "name": "vue-demo",
   "dependencies": {
     "eiows": "^3.6.1",
     "html-webpack-plugin": "^5.5.0",
