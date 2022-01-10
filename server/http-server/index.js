@@ -21,13 +21,18 @@ app.all("/expired", (req, res) => {
 });
 
 // hook请求写入到数据库
-app.all("/webhook", (req, res) => {
-  const { ref, project_id, hash } = req.body;
-  read({ ref, project_id }, (err, res) => {
+app.all("/webhook", (req, response) => {
+  const { ref, checkout_sha, project } = req.body;
+  const project_name = project.name;
+  read({ ref, project_name }, (err, res) => {
     if (res.length) {
-      update({ ref, project_id, hash }, () => res.sendStatus(200));
+      update({ ref, project_name, hash: checkout_sha }, () =>
+        response.sendStatus(200)
+      );
     } else {
-      insert({ ref, project_id, hash }, () => res.sendStatus(200));
+      insert({ ref, project_name, hash: checkout_sha }, () =>
+        response.sendStatus(200)
+      );
     }
   });
 });
@@ -44,7 +49,7 @@ io.on("connection", (socket) => {
     console.log("user disconnected:", socket.id);
   });
   socket.on(EVENT.UPDATE, (info) => {
-    // console.log(info);
+    console.log(info);
     query(info, (err, res) => {
       if (err) throw err;
       if (res.length === 0) {

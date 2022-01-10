@@ -12,8 +12,8 @@ connection.connect((err) => {
   console.log("mysql in connected");
 });
 
-function insert({ project_id, ref, hash }, callback) {
-  var sql = `INSERT INTO branch_info (project_id, ref, hash) VALUES ('${project_id}', '${ref}','${hash}')`;
+function insert({ project_name, ref, hash }, callback) {
+  var sql = `INSERT INTO branch_info (project_name, ref, hash) VALUES ('${project_name}', '${ref}','${hash}')`;
   connection.query(sql, function (err, result) {
     callback(err);
     if (err) {
@@ -23,8 +23,8 @@ function insert({ project_id, ref, hash }, callback) {
   });
 }
 
-function query({ project_id, ref, hash }, callback) {
-  var sql = `SELECT * FROM branch_info WHERE project_id = ${project_id} AND ref = '${ref}' AND hash = '${hash}';`;
+function query({ project_name, ref, hash }, callback) {
+  var sql = `SELECT * FROM branch_info WHERE hash = '${hash}';`;
   connection.query(sql, function (err, result) {
     callback(err, result);
     if (err) {
@@ -33,8 +33,8 @@ function query({ project_id, ref, hash }, callback) {
   });
 }
 
-function read({ project_id, ref }, callback) {
-  const sql = `SELECT * FROM branch_info WHERE project_id = ${project_id} AND ref = '${ref}';`;
+function read({ project_name, ref }, callback) {
+  const sql = `SELECT * FROM branch_info WHERE project_name = '${project_name}' AND ref = '${ref}';`;
   connection.query(sql, function (err, result) {
     callback(err, result);
     if (err) {
@@ -43,8 +43,8 @@ function read({ project_id, ref }, callback) {
   });
 }
 
-function update({ project_id, ref, hash }, callback) {
-  var sql = `UPDATE branch_info SET hash = '${hash}' WHERE project_id = ${project_id} AND ref = '${ref}';`;
+function update({ project_name, ref, hash }, callback) {
+  var sql = `UPDATE branch_info SET hash = '${hash}' WHERE project_name = '${project_name}' AND ref = '${ref}';`;
   connection.query(sql, function (err, result) {
     callback(err, result);
     if (err) {
