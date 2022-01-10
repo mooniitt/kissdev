@@ -1,6 +1,6 @@
 module.exports = {
   HTTP: {
-    PORT: 8888,
+    PORT: 8080,
   },
   SOCKET: {
     PORT: 8888,
