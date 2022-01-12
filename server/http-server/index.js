@@ -23,6 +23,7 @@ app.all("/expired", (req, res) => {
 // hook请求写入到数据库
 app.all("/webhook", (req, response) => {
   const { ref, checkout_sha, project } = req.body;
+  console.log(req.body);
   const project_name = project.name;
   read({ ref, project_name }, (err, res) => {
     if (res.length) {
