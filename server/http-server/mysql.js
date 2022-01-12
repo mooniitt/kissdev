@@ -24,7 +24,7 @@ function insert({ project_name, ref, hash }, callback) {
 }
 
 function query({ project_name, ref, hash }, callback) {
-  var sql = `SELECT * FROM branch_info WHERE hash = '${hash}';`;
+  var sql = `SELECT * FROM branch_info WHERE hash = '${hash}' AND project_name = '${project_name}';`;
   connection.query(sql, function (err, result) {
     callback(err, result);
     if (err) {

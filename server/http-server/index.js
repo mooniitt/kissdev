@@ -48,9 +48,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected:", socket.id);
   });
-  socket.on(EVENT.UPDATE, (info) => {
-    console.log(info);
-    query(info, (err, res) => {
+  socket.on("update", (info) => {
+    // console.log(info);
+    const { project_name, hash } = info;
+    query({ project_name, hash }, (err, res) => {
       if (err) throw err;
       if (res.length === 0) {
         socket.emit("expired", "page is expired");
