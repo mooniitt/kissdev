@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <script src="https://cdn.jsdelivr.net/npm/socket.io@4.4.1/client-dist/socket.io.min.js"></script>
-    <script>
-      window.onload = function () {
-        // var socket = io.connect("ws://101.35.85.83:8080/webhook");
-        // console.log(".... 123123123");
-        var socket = io.connect("ws://127.0.0.1:8080/");
-        var dev = document.querySelector("#kissdev");
-        var project_name = dev.getAttribute("project_name");
-        var hash = dev.getAttribute("hash");
-        socket.on("connect", () => {
-          console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-        });
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+        <script src="https://cdn.jsdelivr.net/npm/socket.io@4.4.1/client-dist/socket.io.min.js"></script>
+        <script>
+            window.onload = function () {
+                // var socket = io.connect("ws://101.35.85.83:8080/webhook");
+                // console.log(".... 123123123");
+                var socket = io.connect("ws://127.0.0.1:8080/");
+                var dev = document.querySelector("#kissdev");
+                var project_name = dev.getAttribute("project_name");
+                var hash = dev.getAttribute("hash");
+                socket.on("connect", () => {
+                    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+                });
 
-        socket.on("broadcast", (...rest) => {
-          console.log(...rest);
-          // if (rest.hash !== hash) {
-          //   alert("page is expired");
-          // }
-        });
+                socket.on("broadcast", (...rest) => {
+                    console.log(...rest);
+                    // if (rest.hash !== hash) {
+                    //   alert("page is expired");
+                    // }
+                });
 
-        socket.on("expired", (msg) => {
-          alert(msg);
-        });
-        setInterval(() => {
-          socket.emit("update", { project_name: project_name, hash: hash });
-          console.log(project_name, hash);
-        }, 2000);
-      };
-    </script>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
-      >
-    </noscript>
-    <div id="app"></div>
-    <div
-      id="kissdev"
-      project_name="test-webhook"
-      ref="refs/heads/53ab402"
-      hash="53ab4024251d58dfe78b41109cf5efc2fc9ba957"
-    ></div>
-    <!-- built files will be auto injected -->
-  </body>
+                socket.on("expired", (msg) => {
+                    alert(msg);
+                });
+                setInterval(() => {
+                    socket.emit("update", {
+                        project_name: project_name,
+                        hash: hash,
+                    });
+                    console.log(project_name, hash);
+                }, 2000);
+            };
+        </script>
+        <title><%= htmlWebpackPlugin.options.title %></title>
+    </head>
+    <body>
+        <noscript>
+            <strong
+                >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't
+                work properly without JavaScript enabled. Please enable it to
+                continue.</strong
+            >
+        </noscript>
+        <div id="app"></div>
+        <div
+            id="kissdev"
+            project_name="test-webhook"
+            ref="refs/heads/53ab402"
+            hash="53ab4024251d58dfe78b41109cf5efc2fc9ba957"
+        ></div>
+        <!-- built files will be auto injected -->
+    </body>
 </html>
