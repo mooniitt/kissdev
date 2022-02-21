@@ -21,6 +21,10 @@ function tapCompilationEvent(compilation, eventName, handler) {
 }
 
 class DevLatest {
+  // 在构造函数中获取用户给该插件传入的配置
+  constructor(options) {
+    this.options = options;
+  }
   apply(compiler) {
     compiler.plugin("compilation", function (compilation) {
       tapCompilationEvent(

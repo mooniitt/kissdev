@@ -43,8 +43,8 @@ function read({ project_name, ref }, callback) {
   });
 }
 
-function update({ project_name, ref, hash }, callback) {
-  var sql = `UPDATE branch_info SET hash = '${hash}' WHERE project_name = '${project_name}' AND ref = '${ref}';`;
+function update({ project_name, ref, hash, user_username }, callback) {
+  var sql = `UPDATE branch_info SET hash = '${hash}' WHERE project_name = '${project_name}' AND ref = '${ref}' ;`;
   connection.query(sql, function (err, result) {
     callback(err, result);
     if (err) {

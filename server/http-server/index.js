@@ -22,21 +22,23 @@ app.all("/expired", (req, res) => {
 
 // hook请求写入到数据库
 app.all("/webhook", (req, response) => {
-  const { ref, checkout_sha, project } = req.body;
+  const { ref, checkout_sha, project, user_username } = req.body;
   console.log(req.body);
   const project_name = project.name;
   read({ ref, project_name }, (err, res) => {
     if (res.length) {
-      update({ ref, project_name, hash: checkout_sha }, () =>
+      update({ ref, project_name, hash: checkout_sha, user_username }, () =>
         response.sendStatus(200)
       );
     } else {
-      insert({ ref, project_name, hash: checkout_sha }, () =>
+      insert({ ref, project_name, hash: checkout_sha, user_username }, () =>
         response.sendStatus(200)
       );
     }
   });
 });
+
+// app.all("/socket.io", cors());
 
 const httpServer = app.listen(HTTP.PORT, () => {
   console.log(`http server is on port ${HTTP.PORT}`);
@@ -44,13 +46,15 @@ const httpServer = app.listen(HTTP.PORT, () => {
 
 const io = ioServer(httpServer, { cors: true });
 
+// ioServer.origins();
+
 io.on("connection", (socket) => {
   console.log("socket id:", socket.id);
   socket.on("disconnect", () => {
     console.log("user disconnected:", socket.id);
   });
   socket.on("update", (info) => {
-    // console.log(info);
+    console.log(info);
     const { project_name, hash } = info;
     query({ project_name, hash }, (err, res) => {
       if (err) throw err;

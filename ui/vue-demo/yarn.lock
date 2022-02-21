@@ -3105,10 +3105,10 @@ detect-node@^2.0.4:
   resolved "https://registry.nlark.com/detect-node/download/detect-node-2.1.0.tgz#c9c70775a49c3d03bc2c06d9a73be550f978f8b1"
   integrity sha1-yccHdaScPQO8LAbZpzvlUPl4+LE=
 
-devlatest@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/devlatest/-/devlatest-0.0.3.tgz#a21599662ecdc6d118a05d9dded83071345a1666"
-  integrity sha512-T/2lQVKPqAmmdd88Dkz55kNWpCEbB7tRfsujA+yMq6H7a26F4rCQYC4Wuj9JZI2DP9HQTfGV4UGpuQGF45o4oQ==
+devlatest@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/devlatest/-/devlatest-0.0.8.tgz#4eefc49d6217b040431f5e41aac33821bab5a4ba"
+  integrity sha512-hvwH/aHpKf3i87AKrUJKuz787tf+rGTzBzv8nytTptgHeXHdYBtvUlxp5p2ddGfAfhy6Ui2PRbny3gm2mjQ1Ew==
   dependencies:
     axios "^0.24.0"
     object-hash "^2.2.0"
