@@ -33,6 +33,7 @@ class DevLatest {
     this.options = options;
   }
   apply(compiler) {
+    if (process.env.NODE_ENV === 'production') return
     compiler.hooks.compilation.tap('DevLatest', function (compilation) {
       const fn = body => (pluginArgs, callback) => {
         pluginArgs[body].push(
