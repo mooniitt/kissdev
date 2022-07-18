@@ -1,28 +1,41 @@
-window.onload = function () {
-  const dev = document.querySelector("#kissdev");
-  const project_name = dev.getAttribute("project_name");
-  const hash = dev.getAttribute("hash");
-  const ref = dev.getAttribute("ref");
-  const socket = io.connect("ws://101.35.85.83:8080/webhook");
+document.onload = function () {
+  function pageExpired() {
+    window.fetch(window.domain).then(_r => _r.text()).then(html => {
+      const kissdev = document.querySelector('#kissdev')
+      const hash = (kissdev.getAttribute('hash'))
+      if (html.indexOf(hash) === -1) {
+        kissdev.style.position = 'fixed'
+        kissdev.style.background = 'red'
+        kissdev.style.top = '10px'
+        kissdev.style.right = '10px'
+        kissdev.style.width = '10px'
+        kissdev.style.height = '10px'
+        kissdev.style.borderRadius = '5px'
+        kissdev.style.boxShadow = '0px 0 3px 2px #011100'
+      }
+    })
+  }
 
-  socket.on("connect", () => {
-    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-  });
+  function throttle() {
+    let timer = null
+    return () => {
+      if (timer) {
+        return
+      } else {
+        pageExpired()
+        timer = setTimeout(() => {
+          clearTimeout(timer)
+        }, 1e5)
+      }
+    }
+  }
 
-  socket.on("broadcast", (...rest) => {
-    console.log(...rest);
-    // if (rest.hash !== hash) {
-    //   alert("page is expired");
-    // }
-  });
+  pageExpired()
 
-  socket.on("expired", (msg) => {
-    alert(msg);
-  });
-  setInterval(() => {
-    socket.emit("update", { project_name, hash });
-    console.log(
-      `socket.emit("update", { project_name : ${project_name}, hash: ${hash} })`
-    );
-  }, 5000);
-};
+  const _tfn = throttle()
+
+  window.addEventListener('click', _tfn)
+
+  window.addEventListener('scroll', _tfn)
+
+}
