@@ -1,6 +1,6 @@
-document.onload = function () {
+window.onload = function () {
   function pageExpired() {
-    window.fetch(window.domain).then(_r => _r.text()).then(html => {
+    window.fetch(location.href).then(_r => _r.text()).then(html => {
       const kissdev = document.querySelector('#kissdev')
       const hash = (kissdev.getAttribute('hash'))
       if (html.indexOf(hash) === -1) {
@@ -25,7 +25,7 @@ document.onload = function () {
         pageExpired()
         timer = setTimeout(() => {
           clearTimeout(timer)
-        }, 1e5)
+        }, 1e4)
       }
     }
   }

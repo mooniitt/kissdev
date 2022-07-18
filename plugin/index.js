@@ -25,39 +25,46 @@ function tapCompilationEvent(compilation, eventName, handler) {
   }
 }
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 class DevLatest {
   // 在构造函数中获取用户给该插件传入的配置
   constructor(options) {
     this.options = options;
   }
   apply(compiler) {
-    compiler.plugin("compilation", function (compilation) {
-      tapCompilationEvent(
-        compilation,
-        "html-webpack-plugin-alter-asset-tags",
-        function (pluginArgs, callback) {
-          pluginArgs.body.push(
-            createHtmlTagObject(
-              "script", {},
-              fs.readFileSync(resolve(__dirname, "bundle.js"))
-            )
-          );
-          const timestamp = `${new Date().getTime()}`;
-          pluginArgs.body.push(
-            createHtmlTagObject("div", {
-              id: "kissdev",
+    compiler.hooks.compilation.tap('DevLatest', function (compilation) {
+      const fn = body => (pluginArgs, callback) => {
+        pluginArgs[body].push(
+          createHtmlTagObject(
+            "script", {},
+            fs.readFileSync(resolve(__dirname, "bundle.js"))
+          )
+        );
+        const timestamp = `${new Date().getTime()}`;
+        pluginArgs[body].push(
+          createHtmlTagObject("div", {
+            id: "kissdev",
+            project_id: 4435,
+            ref: "refs/heads/master",
+            hash: hash({
               project_id: 4435,
-              ref: "refs/heads/master",
-              hash: hash({
-                project_id: 4435,
-                timestamp
-              }),
-            })
-          );
-          callback(null, pluginArgs);
-        }
-      );
-    });
+              timestamp
+            }),
+          })
+        );
+        callback(null, pluginArgs);
+      }
+      if (HtmlWebpackPlugin.getHooks) {
+        HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(
+          'DevLatest', // <-- Set a meaningful name here for stacktraces
+          fn('bodyTags')
+        )
+      } else {
+        tapCompilationEvent(compilation, 'html-webpack-plugin-alter-asset-tags', fn('body'))
+      }
+
+    })
   }
 }
 
