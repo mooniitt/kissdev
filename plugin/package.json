@@ -1,6 +1,6 @@
 {
   "name": "devlatest",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "description": "give you a tips when current page is expired",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "html-webpack-plugin": ">3"
+    "html-webpack-plugin": ">=3.2.0"
   },
   "dependencies": {
     "@rollup/plugin-babel": "^5.3.1",
